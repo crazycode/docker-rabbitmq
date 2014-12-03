@@ -14,7 +14,7 @@ RUN wget -qO - http://www.rabbitmq.com/rabbitmq-signing-key-public.asc | apt-key
 RUN echo "deb http://www.rabbitmq.com/debian/ testing main" > /etc/apt/sources.list.d/rabbitmq.list
 RUN apt-get update && \
   apt-get install -y rabbitmq-server && \
-  rm -rf /var/lib/apt/lists/*
+  apt-get -qq clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 RUN rabbitmq-plugins enable rabbitmq_management && \
   echo "[{rabbit, [{loopback_users, []}]}]." > /etc/rabbitmq/rabbitmq.config && \
